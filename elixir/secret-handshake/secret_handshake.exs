@@ -22,23 +22,21 @@ defmodule SecretHandshake do
 
   @spec commands(code :: integer) :: list(String.t())
   def commands(code) do
-    binary_code = to_binary(code)
-    action_list = binary_code
-    |> Enum.reverse
+    reversed_binary_code = to_reversed_binary(code)
+    action_list = reversed_binary_code
     |> Enum.zip(@actions)
     |> Enum.map(fn {num, action} -> if num == 1, do: action, else: nil end)
     |> Enum.reject(&is_nil/1)
-    if length(binary_code) > 4 do
+    if length(reversed_binary_code) > 4 do
       Enum.reverse(action_list)
     else
       action_list
     end
   end
 
-  @spec to_binary(integer()) :: list(integer())
-  def to_binary(0), do: []
-  def to_binary(1), do: [1]
-  def to_binary(code) do
-    to_binary(div(code, 2)) ++ [rem(code, 2)]
+  @spec to_reversed_binary(integer()) :: list(integer())
+  def to_reversed_binary(0), do: []
+  def to_reversed_binary(code) do
+    [rem(code, 2) | to_reversed_binary(div(code, 2))]
   end
 end
