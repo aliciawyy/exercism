@@ -27,7 +27,7 @@ defmodule SecretHandshake do
     |> Enum.reverse
     |> Enum.zip(@actions)
     |> Enum.map(fn {num, action} -> if num == 1, do: action, else: nil end)
-    |> Enum.filter(&(&1 != nil))
+    |> Enum.reject(&is_nil/1)
     if length(binary_code) > 4 do
       Enum.reverse(action_list)
     else
