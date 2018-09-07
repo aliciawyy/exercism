@@ -12,7 +12,7 @@ defmodule Words do
     |> Enum.reduce(fn a, b -> Map.merge(a, b, fn _k, v1, v2 -> v1 + v2 end) end)
   end
 
-  def split_words(sentence) do
+  defp split_words(sentence) do
     sentence
     |> String.downcase
     |> String.split([" ", ",", ":", "_", "!"])
