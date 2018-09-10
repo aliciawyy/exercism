@@ -15,7 +15,7 @@ defmodule RNATranscription do
     |> String.to_charlist
   end
 
-  def to_rna_single(dna) do
+  defp to_rna_single(dna) do
     case [dna] do
       'G' -> "C"
       'C' -> "G"
