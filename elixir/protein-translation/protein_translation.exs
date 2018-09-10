@@ -4,16 +4,22 @@ defmodule ProteinTranslation do
   """
   @spec of_rna(String.t()) :: {atom, list(String.t())}
   def of_rna(rna) do
-    {:ok, get_proteins(rna)}
+    proteins = get_proteins(rna)
+    last_protein = List.last(proteins)
+    if is_tuple(last_protein) do
+      last_protein
+    else
+      {:ok, proteins}
+    end
   end
 
   defp get_proteins(""), do: []
   defp get_proteins(rna) do
-    {_, protein} = of_codon(String.slice(rna, 0..2))
-    unless protein == "STOP" do
-      [protein | get_proteins(String.slice(rna, 3..-1))]
-    else
-      []
+    {status, protein} = of_codon(String.slice(rna, 0..2))
+    cond do
+      status == :error -> [{status, protein}]
+      protein == "STOP" -> []
+      true -> [protein | get_proteins(String.slice(rna, 3..-1))]
     end
   end
 
@@ -49,6 +55,7 @@ defmodule ProteinTranslation do
       String.match?(codon, ~r/UU[UC]/) -> {:ok, "Phenylalanine"}
       String.match?(codon, ~r/UA[UC]/) -> {:ok, "Tyrosine"}
       String.match?(codon, ~r/UA[AG]/) or codon == "UGA" -> {:ok, "STOP"}
+      String.length(codon) != 3 -> {:error, "invalid codon"}
       true -> {:error, "invalid RNA"}
     end
   end
