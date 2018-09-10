@@ -9,12 +9,18 @@ defmodule RNATranscription do
   """
   @spec to_rna([char]) :: [char]
   def to_rna(dna) do
-    case dna do
-      'G' -> 'C'
-      'C' -> 'G'
-      'T' -> 'A'
-      'A' -> 'U'
-      [head | tail]-> to_rna([head]) ++ to_rna(tail)
+    dna
+    |> Enum.map(&to_rna_single/1)
+    |> Enum.join("")
+    |> String.to_charlist
+  end
+
+  def to_rna_single(dna) do
+    case [dna] do
+      'G' -> "C"
+      'C' -> "G"
+      'T' -> "A"
+      'A' -> "U"
     end
   end
 end
