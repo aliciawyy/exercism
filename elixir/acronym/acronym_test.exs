@@ -3,10 +3,14 @@ if !System.get_env("EXERCISM_TEST_EXAMPLES") do
 end
 
 ExUnit.start()
-ExUnit.configure(exclude: :pending, trace: true)
+# ExUnit.configure(exclude: :pending, trace: true)
 
 defmodule AcronymTest do
   use ExUnit.Case
+
+  test "extract_from on" do
+    assert Acronym.extract_from("on") == "o"
+  end
 
   test "it produces acronyms from title case" do
     assert Acronym.abbreviate("Portable Networks Graphic") === "PNG"
@@ -22,7 +26,7 @@ defmodule AcronymTest do
     assert Acronym.abbreviate("HyperText Markup Language") === "HTML"
   end
 
-  @tag :pending
+  # @tag :pending
   test "it ignores punctuation" do
     assert Acronym.abbreviate("First in, First out") === "FIFO"
   end
