@@ -43,6 +43,10 @@ defmodule RomanTest do
     assert Roman.numerals(9) == "IX"
   end
 
+  test "10" do
+    assert Roman.numerals(10) == "X"
+  end
+
   # @tag :pending
   test "27" do
     assert Roman.numerals(27) == "XXVII"
@@ -63,37 +67,37 @@ defmodule RomanTest do
     assert Roman.numerals(93) == "XCIII"
   end
 
-  @tag :pending
+  # @tag :pending
   test "141" do
     assert Roman.numerals(141) == "CXLI"
   end
 
-  @tag :pending
+  # @tag :pending
   test "163" do
     assert Roman.numerals(163) == "CLXIII"
   end
 
-  @tag :pending
+  # @tag :pending
   test "402" do
     assert Roman.numerals(402) == "CDII"
   end
 
-  @tag :pending
+  # @tag :pending
   test "575" do
     assert Roman.numerals(575) == "DLXXV"
   end
 
-  @tag :pending
+  # @tag :pending
   test "911" do
     assert Roman.numerals(911) == "CMXI"
   end
 
-  @tag :pending
+  # @tag :pending
   test "1024" do
     assert Roman.numerals(1024) == "MXXIV"
   end
 
-  @tag :pending
+  # @tag :pending
   test "3000" do
     assert Roman.numerals(3000) == "MMM"
   end
